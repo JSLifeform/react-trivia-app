@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 const TriviaQ = props => (
-    <h1 innertext = {props.triviaMessage} />
+    <p>{props.TriviaMessage}</p>
 )
+
+// return (TriviaQ);
 
 export default TriviaQ;
