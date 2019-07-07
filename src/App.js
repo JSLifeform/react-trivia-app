@@ -4,6 +4,9 @@ import './App.css';
 import {Route, HashRouter, Link} from 'react-router-dom';
 import TriviaQ from './TriviaQ.js';
 import APICall from './APICall';
+import mathHeader from './math.js'
+import triviaHeader from './trivia.js'
+import yearHeader from './year.js'
 
 
 class App extends Component {
@@ -69,13 +72,18 @@ class App extends Component {
 
     // parses response into JSON
     let triviaFacts = await results.json()
+    // terminates loading screen
     this.setState({isFetching: false})
     // saves fact into App state
     this.state.triviaMessage = triviaFacts.text
+    this.state.randomNumber = triviaFacts.number
+    console.log(triviaFacts)
+    console.log(this.state.randomNumber)
     // renders trivia fact into DOM
     let displayStatement = <p>{this.state.triviaMessage}</p>
-    ReactDOM.render(displayStatement, document.getElementById('populate-text'));
     let displayNumber = <label> Current number showing facts for: {this.state.randomNumber} </label>
+    console.log(displayNumber)
+    ReactDOM.render(displayStatement, document.getElementById('populate-text'));
     ReactDOM.render(displayNumber, document.getElementById('display-number'));
     }
 
@@ -97,13 +105,18 @@ class App extends Component {
         return (
             // display buttons, populate-text div
             <div className="trivia-application">
+            <HashRouter>
             <div className="trivia-fact-selectors">
-                <HashRouter>
-                <Route exact path = "/" ><button onClick={this.triviaFacts}>Numbers Trivia</button></Route>
-                <Route path = "/math" ><button onClick={this.mathFacts}>Math Trivia</button></Route>
-                <Route path = "/year" ><button onClick={this.yearFacts}>Year Trivia</button></Route>
-                </HashRouter>
+                
+                <Route exact path = "/" component = {triviaHeader}/>
+                <Route path = "/math" component = {mathHeader} />
+                <Route path = "/year" component = {yearHeader}/>
+                <Link to ="/"><button onClick={this.triviaFacts}>Numbers Trivia</button></Link>
+                <Link to ="/math"><button onClick={this.mathFacts}>Math Trivia</button></Link>
+                <Link to ="/year"><button onClick={this.yearFacts}>Year Trivia</button></Link>
+                
             </div>
+            </HashRouter>
             <div id="populate-text">
             </div>
             <button onClick={this.callAPIFact}>New Fetch</button>
