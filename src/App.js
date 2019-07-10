@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import './App.css';
 import {Route, HashRouter, Link} from 'react-router-dom';
-import TriviaQ from './TriviaQ.js';
+import triviaQ from './TriviaQ.js';
 import APICall from './APICall';
 import mathHeader from './math.js'
 import triviaHeader from './trivia.js'
@@ -45,9 +45,19 @@ class App extends Component {
     numberSubmit = event => {
         event.preventDefault();
         let newNumber = document.getElementById('user-submitted-number').value
+        //<-----------------------------error checking on entered string
+        // let numTest = new RegExp('/^\d+$/')
+        // if (numTest.test(newNumber)) {
+        //     this.setState({randomNumber: newNumber});
+        //     console.log(this.randomNumber)
+        // } 
+        // else  {alert("This is not a proper number!");
+        //     console.log(typeof(newNumber))
+        // }
+        //<-------------------------------end of string error checking
         this.setState({randomNumber: newNumber})
         console.log(newNumber)
-        let displayNumber = <label> Will show fact for number: {newNumber} </label>
+        let displayNumber = <label> Will show fact for number: {this.state.randomNumber} </label>
         ReactDOM.render(displayNumber, document.getElementById('display-number'));
     }
 
@@ -83,8 +93,10 @@ class App extends Component {
     let displayStatement = <p>{this.state.triviaMessage}</p>
     let displayNumber = <label> Current number showing facts for: {this.state.randomNumber} </label>
     console.log(displayNumber)
-    ReactDOM.render(displayStatement, document.getElementById('populate-text'));
-    ReactDOM.render(displayNumber, document.getElementById('display-number'));
+    // <---------------------below commented line is redundant, delete
+    ReactDOM.render(triviaQ(this.state.triviaMessage), document.getElementById('populate-text'));
+    //<----------below line displays proper displayNumber in ReactDOM, trying to antiquate
+    // ReactDOM.render(displayNumber, document.getElementById('display-number'));
     }
 
     
@@ -124,10 +136,16 @@ class App extends Component {
                 <label>
                     Enter the number you'd like to see random trivia for!
                     <br></br>
-                    <input id = "user-submitted-number" type = "text" name = "number-value"/>
+                    <input id = "user-submitted-number" type = "number" name = "number-value"/>
                 </label>
                 <input type = "submit" value = "Submit" onClick={this.numberSubmit}/>
-                <div id = "display-number"></div>
+                <div id = "display-number">
+                {/* <---------------------start of slow render for number */}
+                    <label>
+                        Will show fact for number: {this.state.randomNumber}
+                    </label>
+                {/* <-------------------end of slow render for number */}
+                </div>
                 {/* <label>
                     {this.state.randomNumber}
                 </label> */}
