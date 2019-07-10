@@ -16,7 +16,8 @@ class App extends Component {
             triviaMessage : 'test',
             factType : 'trivia',
             randomNumber : 42,
-            isFetching : true
+            isFetching : true,
+            userNumberChange : false
         };
         this.triviaFacts = this.triviaFacts.bind(this);
         this.mathFacts = this.mathFacts.bind(this);
@@ -42,6 +43,14 @@ class App extends Component {
         console.log(this.state.factType)
     }
 
+    toggleText = () => {
+        if (this.state.userNumberChange == true) {
+            return("true")
+        } else {
+            return("false")
+        }
+    }
+
     numberSubmit = event => {
         event.preventDefault();
         let newNumber = document.getElementById('user-submitted-number').value
@@ -56,9 +65,12 @@ class App extends Component {
         // }
         //<-------------------------------end of string error checking
         this.setState({randomNumber: newNumber})
+        this.setState({userNumberChange: true})
         console.log(newNumber)
-        let displayNumber = <label> Will show fact for number: {this.state.randomNumber} </label>
-        ReactDOM.render(displayNumber, document.getElementById('display-number'));
+        console.log(this.state.userNumberChange)
+        //<----------below 2 lines display proper displayNumber in ReactDOM, trying to antiquate
+        // let displayNumber = <label> Will show fact for number: {this.state.randomNumber} </label>
+        // ReactDOM.render(displayNumber, document.getElementById('display-number'));
     }
 
     // function to access API for facts repeatedly
@@ -84,9 +96,12 @@ class App extends Component {
     let triviaFacts = await results.json()
     // terminates loading screen
     this.setState({isFetching: false})
+    this.setState({userNumberChange : false})
     // saves fact into App state
-    this.state.triviaMessage = triviaFacts.text
-    this.state.randomNumber = triviaFacts.number
+    this.setState({RandomNumber : triviaFacts.number})
+    this.setState({triviaMessage : triviaFacts.text})
+    // <-----below line of code antiquated for creating random number, possibly delete?
+    // this.setState({randomNumber : triviaFacts.number})
     console.log(triviaFacts)
     console.log(this.state.randomNumber)
     // renders trivia fact into DOM
@@ -94,7 +109,7 @@ class App extends Component {
     let displayNumber = <label> Current number showing facts for: {this.state.randomNumber} </label>
     console.log(displayNumber)
     // <---------------------below commented line is redundant, delete
-    ReactDOM.render(triviaQ(this.state.triviaMessage), document.getElementById('populate-text'));
+    // ReactDOM.render(triviaQ(this.state.triviaMessage), document.getElementById('populate-text'));
     //<----------below line displays proper displayNumber in ReactDOM, trying to antiquate
     // ReactDOM.render(displayNumber, document.getElementById('display-number'));
     }
@@ -130,6 +145,7 @@ class App extends Component {
             </div>
             </HashRouter>
             <div id="populate-text">
+                {triviaQ(this.state.triviaMessage)}
             </div>
             <button onClick={this.callAPIFact}>New Fetch</button>
             <form id="number-selector">
@@ -142,7 +158,8 @@ class App extends Component {
                 <div id = "display-number">
                 {/* <---------------------start of slow render for number */}
                     <label>
-                        Will show fact for number: {this.state.randomNumber}
+                    {this.toggleText()}
+                    {/* Will show fact for number: {this.state.randomNumber} */}
                     </label>
                 {/* <-------------------end of slow render for number */}
                 </div>
