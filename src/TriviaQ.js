@@ -8,7 +8,8 @@ const triviaQ = (props)=>{
     // adds capitalized letter to rest of string
     let capitalizedString = capitalizedLetter + props.slice(1);
     // dynamically displays string as it changes through API calls
-    return <p>triviaQ trivia: {capitalizedString}</p>;
+    
+    return <p>{capitalizedString}</p>;
 }
 
 export default triviaQ;

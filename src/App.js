@@ -43,17 +43,12 @@ class App extends Component {
         console.log(this.state.factType)
     }
 
-    toggleText = () => {
-        if (this.state.userNumberChange == true) {
-            return("true")
-        } else {
-            return("false")
-        }
-    }
-
     numberSubmit = event => {
         event.preventDefault();
         let newNumber = document.getElementById('user-submitted-number').value
+        if (newNumber == '' || newNumber < 0 ){
+            alert("Integer greater than 0 must be entered, please try again!")
+        } else {
         //<-----------------------------error checking on entered string
         // let numTest = new RegExp('/^\d+$/')
         // if (numTest.test(newNumber)) {
@@ -68,9 +63,7 @@ class App extends Component {
         this.setState({userNumberChange: true})
         console.log(newNumber)
         console.log(this.state.userNumberChange)
-        //<----------below 2 lines display proper displayNumber in ReactDOM, trying to antiquate
-        // let displayNumber = <label> Will show fact for number: {this.state.randomNumber} </label>
-        // ReactDOM.render(displayNumber, document.getElementById('display-number'));
+        }
     }
 
     // function to access API for facts repeatedly
@@ -96,22 +89,11 @@ class App extends Component {
     let triviaFacts = await results.json()
     // terminates loading screen
     this.setState({isFetching: false})
+    // sets boolean to display label for fetched fact
     this.setState({userNumberChange : false})
-    // saves fact into App state
+    // saves number & fact into App state
     this.setState({RandomNumber : triviaFacts.number})
     this.setState({triviaMessage : triviaFacts.text})
-    // <-----below line of code antiquated for creating random number, possibly delete?
-    // this.setState({randomNumber : triviaFacts.number})
-    console.log(triviaFacts)
-    console.log(this.state.randomNumber)
-    // renders trivia fact into DOM
-    let displayStatement = <p>{this.state.triviaMessage}</p>
-    let displayNumber = <label> Current number showing facts for: {this.state.randomNumber} </label>
-    console.log(displayNumber)
-    // <---------------------below commented line is redundant, delete
-    // ReactDOM.render(triviaQ(this.state.triviaMessage), document.getElementById('populate-text'));
-    //<----------below line displays proper displayNumber in ReactDOM, trying to antiquate
-    // ReactDOM.render(displayNumber, document.getElementById('display-number'));
     }
 
     
@@ -156,16 +138,11 @@ class App extends Component {
                 </label>
                 <input type = "submit" value = "Submit" onClick={this.numberSubmit}/>
                 <div id = "display-number">
-                {/* <---------------------start of slow render for number */}
+                    {/* label which changes text based on if a new number had been entered by user */}
                     <label>
-                    {this.toggleText()}
-                    {/* Will show fact for number: {this.state.randomNumber} */}
+                        {this.state.userNumberChange ? "Will show" : "Currently showing"} facts for: {this.state.randomNumber}
                     </label>
-                {/* <-------------------end of slow render for number */}
                 </div>
-                {/* <label>
-                    {this.state.randomNumber}
-                </label> */}
             </form>
             </div>
              
