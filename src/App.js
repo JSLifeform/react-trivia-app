@@ -1,9 +1,9 @@
+import {ButtonToolbar, Button} from 'react-bootstrap';
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
 import './App.css';
 import {Route, HashRouter, Link} from 'react-router-dom';
 import triviaQ from './TriviaQ.js';
-import APICall from './APICall';
+// import APICall from './APICall';
 import mathHeader from './math.js'
 import triviaHeader from './trivia.js'
 import yearHeader from './year.js'
@@ -31,23 +31,35 @@ class App extends Component {
     triviaFacts = () => {
         this.setState({factType: 'trivia' })
         console.log(this.state.factType)
+        // giving delayed trivia question once again, showing delayed q in props too
+        this.callAPIFact()
+        console.log(this.state.triviaMessage)
     }
 
     mathFacts = () => {
         this.setState({factType: 'math'})
         console.log(this.state.factType)
+        // giving delayed trivia question once again, showing delayed q in props too
+        this.callAPIFact()
+        console.log(this.state.triviaMessage)
     }
 
     yearFacts = () => {
         this.setState({factType: 'year'})
         console.log(this.state.factType)
+        // giving delayed trivia question once again, showing delayed q in props too
+        this.callAPIFact()
+        console.log(this.state.triviaMessage)
     }
 
     numberSubmit = event => {
+        // prevents page reload
         event.preventDefault();
+        // collects user submitted value from DOM
         let newNumber = document.getElementById('user-submitted-number').value
-        if (newNumber == '' || newNumber < 0 ){
-            alert("Integer greater than 0 must be entered, please try again!")
+        // checks value of submitted number to make sure it's greater than 0
+        if (newNumber === '' || newNumber < 0 ){
+            alert("Integer greater than -1 must be entered, please try again!")
         } else {
         //<-----------------------------error checking on entered string
         // let numTest = new RegExp('/^\d+$/')
@@ -59,10 +71,9 @@ class App extends Component {
         //     console.log(typeof(newNumber))
         // }
         //<-------------------------------end of string error checking
+        newNumber = Math.floor(newNumber)
         this.setState({randomNumber: newNumber})
         this.setState({userNumberChange: true})
-        console.log(newNumber)
-        console.log(this.state.userNumberChange)
         }
     }
 
@@ -71,9 +82,7 @@ class App extends Component {
         this.setState({isFetching: true})
         // generates random number 0-100 for API fetch
         // this.state.randomNumber = Math.floor(Math.random() * 101);
-        console.log(this.state.randomNumber)
         let APISite = `https://numbersapi.p.rapidapi.com/${this.state.randomNumber}/${this.state.factType}?fragment=true&notfound=floor&json=true`
-        console.log(APISite)
         let results = await fetch(APISite, {
         headers: {
         "X-RapidAPI-Host": "numbersapi.p.rapidapi.com",
@@ -116,14 +125,16 @@ class App extends Component {
             <div className="trivia-application">
             <HashRouter>
             <div className="trivia-fact-selectors">
-                
+                {/* Routing for buttons */}
                 <Route exact path = "/" component = {triviaHeader}/>
                 <Route path = "/math" component = {mathHeader} />
                 <Route path = "/year" component = {yearHeader}/>
-                <Link to ="/"><button onClick={this.triviaFacts}>Numbers Trivia</button></Link>
-                <Link to ="/math"><button onClick={this.mathFacts}>Math Trivia</button></Link>
-                <Link to ="/year"><button onClick={this.yearFacts}>Year Trivia</button></Link>
-                
+                {/* button links and listen events */}
+                <ButtonToolbar className = "trivia-button-selectors">
+                <Link to ="/"><Button variant="primary" onClick={this.triviaFacts}>Numbers Trivia</Button></Link>
+                <Link to ="/math"><Button variant="success" onClick={this.mathFacts}>Math Trivia</Button></Link>
+                <Link to ="/year"><Button variant="info" onClick={this.yearFacts}>Year Trivia</Button></Link>
+                </ButtonToolbar>
             </div>
             </HashRouter>
             <div id="populate-text">
@@ -132,11 +143,11 @@ class App extends Component {
             <button onClick={this.callAPIFact}>New Fetch</button>
             <form id="number-selector">
                 <label>
-                    Enter the number you'd like to see random trivia for!
+                    Enter a non-negative integer you'd like to see random trivia for!
                     <br></br>
                     <input id = "user-submitted-number" type = "number" name = "number-value"/>
+                    <input type = "submit" value = "Submit" onClick={this.numberSubmit}/>
                 </label>
-                <input type = "submit" value = "Submit" onClick={this.numberSubmit}/>
                 <div id = "display-number">
                     {/* label which changes text based on if a new number had been entered by user */}
                     <label>
