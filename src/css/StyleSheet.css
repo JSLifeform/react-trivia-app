@@ -1,0 +1,88 @@
+.trivia-application {
+    width: 100%;
+    display: flexbox;
+    justify-content: space-evenly;
+    background-color: #abdff1;
+    font-weight: 500;
+}
+
+.center-application {
+    width: 100%;
+    justify-content: center;
+    background-color: #abdff1;
+    font-weight: 500;
+}
+
+.trivia-header {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.trivia-buttons {
+    padding-bottom: 1%;
+}
+
+.text-box {
+    background-color: #0c4a60;
+    color: #ef6c33;
+    font-weight: bold;
+}
+
+.trivia-label {
+    justify-content: center;
+}
+
+.fetch-button {
+    justify-content: right;
+    width: 100%;
+}
+
+body {
+    background-color: #abdff1;
+    max-width: 800px;
+}
+
+#user-submitted-number{
+    max-width: 15em;
+}
+
+input[type="text"] {
+    text-justify: right;
+}
+
+input[type="number"] {
+    text-align: right;
+    padding-right: 1em;
+}
+
+input[type="number"]:focus {
+    text-align: right;
+    padding-right: 1em;
+    justify-content: right;
+    background-color: #0c4a60;
+    color: #ef6c33;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+@media (min-width : 581px) {
+    #dropdown-selector {
+        display: none;
+    }
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media screen and (min-width : 0px) and (max-width : 580px) {
+    #dropdown-selector {
+        display: block;
+    }
+    
+    .button-bar {
+        display: none;
+    }
+}
