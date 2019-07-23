@@ -1,68 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*JOHN LOCKEN'S JS/REACT PROJECT*
 
-## Available Scripts
+Hello, and welcome to my first JavaScript/React project. It is a simple application which pulls numbers-based trivia from a Trivia API. You can choose between 3 different trivia types: random trivia based on the selected number, math-based trivia, or year-based trivia. Currently, Hashroute only changes the heading to show which type of trivia will be fetched. Future functionality may be added to allow users to select a range of numbers based on the type of trivia they want to see. 
 
-In the project directory, you can run:
+If you are viewing this README, you are probably looking at this project through my GitHub repository. The site is currently hosted on Git at https://jslifeform.github.io/trivia-app/. If you would prefer to download the project and run it on your own computer, below is a list of the dependencies:
 
-### `npm start`
+    bootstrap: 4.3.1,
+    react: 16.8.6,
+    react-bootstrap: 1.0.0-beta.9,
+    react-dom: 16.8.6,
+    react-router-dom: 5.0.1,
+    react-scripts: 3.0.1
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Using the program is quite simple. It will default opening to random trivia for the number 42 (the meaning of life, of course!). You can choose between the 3 different trivia endpoints through the buttons underneath the header. There is also a numeric input box which allows you to choose different numbers to view trivia for. If a non-integer is entered, the application will round down to the nearest integer. Once a different endpoint or "New Fetch" is selected, a different piece of trivia for the selected number will be randomly pulled from the API and displayed on the screen. That's all there is to it! 
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+If you are unfamiliar with how to run  a React app on your local machine, follow the steps below:
 
-### `npm run build`
+1.) Download the project files onto your computer from GitHub
+2.) open your Git Bash and navigate to the folder with the trivia app
+3.) run `npm install`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Special thanks to: Ryan Hartlage, Dvontre Coleman, Leigh Luerman, and anyone else I forgot from the Code Louisville team! Thanks for the inspiration and starting push, hopefully I am able to churn out many more JS based programs in the near future!

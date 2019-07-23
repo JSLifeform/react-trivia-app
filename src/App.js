@@ -54,16 +54,6 @@ class App extends Component {
         if (newNumber === '' || newNumber < 0 ){
             alert("Integer greater than -1 must be entered, please try again!")
         } else {
-        //<-----------------------------error checking on entered string
-        // let numTest = new RegExp('/^\d+$/')
-        // if (numTest.test(newNumber)) {
-        //     this.setState({randomNumber: newNumber});
-        //     console.log(this.randomNumber)
-        // } 
-        // else  {alert("This is not a proper number!");
-        //     console.log(typeof(newNumber))
-        // }
-        //<-------------------------------end of string error checking
         newNumber = Math.floor(newNumber)
         this.setState({randomNumber: newNumber})
         this.setState({userNumberChange: true})
@@ -98,17 +88,6 @@ class App extends Component {
         .catch((error) => {
             alert(error + " received from server. Please reload and try again!")    
         }) 
-    // <-------------start of working call function, use if .then doesn't work
-    // parses response into JSON
-    // let triviaFacts = await results.json()
-    // // terminates loading screen
-    // this.setState({isFetching: false})
-    // // sets boolean to display label for fetched fact
-    // this.setState({userNumberChange : false})
-    // // saves number & fact into App state
-    // this.setState({RandomNumber : triviaFacts.number})
-    // this.setState({triviaMessage : triviaFacts.text})
-    //<-----------end of working call function, use if .then doesn't work
     }
 
     
@@ -119,7 +98,7 @@ class App extends Component {
   
     
     render(){
-
+    // displays loading text
     if (this.state.isFetching) {
         return (
             <div id="populate-text">Loading...</div>
@@ -154,10 +133,7 @@ class App extends Component {
                     {triviaQ(this.state.triviaMessage)}
                 </div>
                 <div className ="center-application">
-                    {/* <div className ="container-fluid"> */}
-                        <button onClick={this.callAPIFact}>New Fetch</button>
-                    {/* </div> */}
-{/* <----------------paste working inputgroup/label here */}
+                    <button onClick={this.callAPIFact}>New Fetch</button>
                     <form className="trivia-label" id="number-selector">
                         <InputGroup className="mb-3">
                             Enter a non-negative integer you'd like to see random trivia for!
@@ -178,7 +154,6 @@ class App extends Component {
                             </InputGroup.Append> 
                             </div>
                         </InputGroup>
-{/* End of working inputgroup/label goes above this */}
                         <div id = "display-number">
                             {/* label which changes text based on if a new number had been entered by user */}
                             <label>
